@@ -1,87 +1,86 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-
-const choices = ['Piedra', 'Papel', 'Tijera'];
+const opciones = ['Piedra', 'Papel', 'Tijera'];
 
 const App = () => {
-  const [playerChoice, setPlayerChoice] = useState(null);
-  const [computerChoice, setComputerChoice] = useState(null);
-  const [result, setResult] = useState('');
+  const [eleccionJugador, setEleccionJugador] = useState(null);
+  const [eleccionComputadora, setEleccionComputadora] = useState(null);
+  const [resultado, setResultado] = useState('');
 
-  const playGame = (playerChoice) => {
-    const computerRandomChoice = choices[Math.floor(Math.random() * 3)];
-    setPlayerChoice(playerChoice);
-    setComputerChoice(computerRandomChoice);
+  const jugar = (eleccionJugador) => {
+    const eleccionComputadoraAleatoria = opciones[Math.floor(Math.random() * 3)];
+    setEleccionJugador(eleccionJugador);
+    setEleccionComputadora(eleccionComputadoraAleatoria);
 
-    const winCombination = {
+    const combinacionGanadora = {
       Piedra: 'Tijera',
       Papel: 'Piedra',
       Tijera: 'Papel',
     };
 
-    if (playerChoice === computerRandomChoice) {
-      setResult('Empate');
-    } else if (winCombination[playerChoice] === computerRandomChoice) {
-      setResult('¡Ganaste!');
+    if (eleccionJugador === eleccionComputadoraAleatoria) {
+      setResultado('Empate');
+    } else if (combinacionGanadora[eleccionJugador] === eleccionComputadoraAleatoria) {
+      setResultado('¡Ganaste!');
     } else {
-      setResult('Perdiste :(');
+      setResultado('Perdiste :(');
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Piedra, Papel o Tijera</Text>
-      <View style={styles.choicesContainer}>
-        {choices.map((choice) => (
+    <View style={styles.contenedor}>
+      <Text style={styles.titulo}>Piedra, Papel o Tijera</Text>
+      <View style={styles.contenedorOpciones}>
+        {opciones.map((opcion) => (
           <TouchableOpacity
-            key={choice}
-            style={styles.choiceButton}
-            onPress={() => playGame(choice)}
+            key={opcion}
+            style={styles.botonOpcion}
+            onPress={() => jugar(opcion)}
           >
-            <Text style={styles.choiceButtonText}>{choice}</Text>
+            <Text style={styles.textoBoton}>{opcion}</Text>
           </TouchableOpacity>
         ))}
       </View>
-      <Text style={styles.text}>Elige: {playerChoice}</Text>
-      <Text style={styles.text}>Computadora: {computerChoice}</Text>
-      <Text style={styles.resultText}>Resultado: {result}</Text>
+      <Text style={styles.texto}>Tu elección: {eleccionJugador}</Text>
+      <Text style={styles.texto}>Computadora: {eleccionComputadora}</Text>
+      <Text style={styles.textoResultado}>Resultado: {resultado}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  contenedor: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f0f0f0',
   },
-  title: {
+  titulo: {
     fontSize: 24,
     marginBottom: 20,
     fontWeight: 'bold',
   },
-  choicesContainer: {
+  contenedorOpciones: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: 30,
   },
-  choiceButton: {
+  botonOpcion: {
     backgroundColor: '#3498db',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
   },
-  choiceButtonText: {
+  textoBoton: {
     color: 'white',
     fontSize: 18,
   },
-  text: {
+  texto: {
     fontSize: 18,
     marginBottom: 10,
   },
-  resultText: {
+  textoResultado: {
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 20,
